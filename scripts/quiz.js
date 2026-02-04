@@ -13,24 +13,34 @@ function createHeart() {
 }
 setInterval(createHeart, 400);
 
-// Teddy Interactions
-const teddyParent = document.getElementById('teddy-parent');
+// Bear GIF Interactions
+const bearGif = document.getElementById('bear-gif');
 const input = document.getElementById('answer-input');
-const mouth = document.getElementById('mouth');
+
+// GIF States
+const Gifs = {
+    idle: 'assets/bear.gif',
+    shy: 'assets/bear2.gif',
+    peek: 'assets/bear4.gif',
+    happy: 'assets/bear5.gif',
+    angry: 'assets/angry.gif',
+    angry2: 'assets/angry2.webp'
+};
 
 input.addEventListener('focus', () => {
-    teddyParent.classList.add('teddy-blush');
-    teddyParent.classList.remove('teddy-peek');
+    bearGif.src = Gifs.shy;
 });
 
 input.addEventListener('blur', () => {
-    teddyParent.classList.remove('teddy-blush');
+    if (bearGif.src.indexOf(Gifs.happy) === -1) {
+        bearGif.src = Gifs.idle;
+    }
 });
 
 input.addEventListener('input', () => {
-    teddyParent.classList.add('teddy-peek');
-    teddyParent.classList.remove('teddy-blush');
-    mouth.setAttribute('d', 'M 92 122 Q 100 132 108 122');
+    if (bearGif.src.indexOf(Gifs.peek) === -1 && bearGif.src.indexOf(Gifs.happy) === -1) {
+        bearGif.src = Gifs.peek;
+    }
 });
 
 // Quiz Logic
@@ -51,29 +61,31 @@ checkBtn.addEventListener('click', () => {
         successTransition();
     } else {
         wrongAttempts++;
+        // Toggle between angry1 and angry2 for variety
+        bearGif.src = (wrongAttempts % 2 === 0) ? Gifs.angry2 : Gifs.angry;
+
         if (wrongAttempts === 1) {
             feedback.textContent = "Hmm… that doesn’t feel right 🤭 Try again!";
-            mouth.setAttribute('d', 'M 96 126 Q 100 120 104 126');
         } else if (wrongAttempts >= 2) {
-            feedback.innerHTML = `Pssst… if you need help,<br>look at the bottom right corner 👀👉`;
+            feedback.innerHTML = `Not here yet 😜<br>Try checking the bottom right corner 👀👉`;
             hintBR.classList.remove('hidden');
         }
     }
 });
 
 function successTransition() {
-    // 1. Teddy Celebration
-    teddyParent.classList.add('teddy-jump', 'teddy-wave');
+    // Celebration GIF
+    bearGif.src = Gifs.happy;
 
     setTimeout(() => {
-        // 2. Hide Quiz Card
+        // Hide Quiz Card
         quizCard.classList.add('fade-out');
 
         setTimeout(() => {
             quizCard.style.display = 'none';
             startRoseBlossom();
         }, 1500);
-    }, 1500);
+    }, 2000);
 }
 
 function startRoseBlossom() {

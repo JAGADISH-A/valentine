@@ -1,6 +1,7 @@
 // Heart Animation (common)
 function createHeart() {
     const container = document.getElementById('hearts-container');
+    if (!container) return;
     const heart = document.createElement('div');
     heart.classList.add('heart');
     heart.innerHTML = '❤️';
@@ -15,6 +16,7 @@ setInterval(createHeart, 400);
 const nicknames = ["muyalkutty 🐰", "konda vecha madam 👑", "my cutie pie 🥧", "I am youholic 💘"];
 function showNickname() {
     const container = document.getElementById('nicknames-container');
+    if (!container) return;
     const el = document.createElement('div');
     el.className = 'floating-nickname';
     el.textContent = nicknames[Math.floor(Math.random() * nicknames.length)];
@@ -60,7 +62,14 @@ const gifts = {
     }
 };
 
+let unlockedStep = 1;
+
 function openGift(id) {
+    if (id > unlockedStep) {
+        showLockedFeedback();
+        return;
+    }
+
     const gift = gifts[id];
     const modal = document.getElementById('gift-modal');
     const content = document.getElementById('gift-detail-content');
@@ -82,6 +91,23 @@ function openGift(id) {
     if (gift.type === 'feelings') {
         typeWriter(gift.text, "typed-feelings");
     }
+
+    // Unlock next gift if this was the latest one
+    if (id === unlockedStep && id < 5) {
+        unlockedStep++;
+    }
+}
+
+function showLockedFeedback() {
+    const modal = document.getElementById('gift-modal');
+    const content = document.getElementById('gift-detail-content');
+
+    content.innerHTML = `
+        <img src="assets/angry.gif" style="width: 200px; margin-bottom: 20px;" alt="Angry Bear">
+        <h2 class="romantic-font" style="color: var(--romantic-red);">Wait! Not so fast! 😤</h2>
+        <p class="romantic-font" style="font-size: 1.3rem;">You have to open them in order, silly! 🤭❤️</p>
+    `;
+    modal.classList.add('active');
 }
 
 function closeModal() {
