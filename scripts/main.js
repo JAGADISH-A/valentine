@@ -16,26 +16,43 @@ function createHeart() {
 setInterval(createHeart, 300);
 
 // Countdown Timer Logic
-let timeLeft = 3; // Setting to 3 seconds for demo/testing. Update to set date if needed.
+const targetDate = new Date('February 14, 2026 00:00:00').getTime();
 const timerElement = document.getElementById('timer');
 const countdownSection = document.getElementById('countdown-section');
 const inviteSection = document.getElementById('invite-section');
+const startBtn = document.getElementById('start-btn');
 
-const countdownInterval = setInterval(() => {
-    const hours = Math.floor(timeLeft / 3600);
-    const minutes = Math.floor((timeLeft % 3600) / 60);
-    const seconds = timeLeft % 60;
+function updateTimer() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
 
-    timerElement.textContent = 
-        `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-
-    if (timeLeft <= 0) {
-        clearInterval(countdownInterval);
-        countdownSection.classList.add('hidden');
-        inviteSection.classList.remove('hidden');
+    if (distance < 0) {
+        clearInterval(timerInterval);
+        timerElement.textContent = "00:00:00:00";
+        showInviteSection();
+        return;
     }
-    timeLeft--;
-}, 1000);
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    timerElement.textContent =
+        `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+const timerInterval = setInterval(updateTimer, 1000);
+updateTimer();
+
+function showInviteSection() {
+    document.body.classList.add('page-transition');
+    setTimeout(() => {
+        window.location.href = 'quiz.html';
+    }, 500);
+}
+
+startBtn.addEventListener('click', showInviteSection);
 
 // "NO" Button Behavior
 const noBtn = document.getElementById('no-btn');
@@ -51,20 +68,37 @@ const messages = [
 let messageIndex = 0;
 
 function moveButton() {
-    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-    
-    noBtn.style.left = `${x}px`;
-    noBtn.style.top = `${y}px`;
-    
+    // Switch to fixed positioning to ensure it stays in viewport accurately
+    if (noBtn.style.position !== 'fixed') {
+        noBtn.style.position = 'fixed';
+    }
+
+    // Change text inside the button first so we can calculate the new width correctly
     if (messageIndex < messages.length) {
-        teaseText.textContent = messages[messageIndex];
-        noBtn.textContent = `NO 😈 (${messageIndex + 1})`;
+        noBtn.textContent = messages[messageIndex];
         messageIndex++;
     } else {
-        // Loop back or stay on last message
-        teaseText.textContent = messages[messages.length - 1];
+        // Stay on the last message if they keep trying
+        noBtn.textContent = messages[messages.length - 1];
     }
+
+    const padding = 20;
+    // Calculate available space based on the current button size after text change
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
+
+    const maxX = window.innerWidth - btnWidth - padding;
+    const maxY = window.innerHeight - btnHeight - padding;
+
+    // Ensure coordinates are at least 'padding' distance from the edges
+    const x = Math.max(padding, Math.random() * maxX);
+    const y = Math.max(padding, Math.random() * maxY);
+
+    noBtn.style.left = `${x}px`;
+    noBtn.style.top = `${y}px`;
+
+    // Clear the teaseText as requested (text is now in the button)
+    if (teaseText) teaseText.textContent = "";
 }
 
 noBtn.addEventListener('mouseover', moveButton);
@@ -78,11 +112,11 @@ yesBtn.addEventListener('click', () => {
         <p class="romantic-font">Knew you will say yes 😁😁</p>
         <div style="margin-top: 2rem;">
             <h2 class="romantic-font">Maa… shall we celebrate our first Valentine’s Day?</h2>
-            <button class="btn btn-primary next-page-btn">YES 🌹</button>
-            <button class="btn btn-primary next-page-btn">INFINITY YES ♾️❤️</button>
+            <button class="btn btn-primary next-page-btn" id="yes-roses">YES 🌹</button>
+            <button class="btn btn-primary next-page-btn" id="infinity-yes">INFINITY YES ♾️❤️</button>
         </div>
     `;
-    
+
     document.querySelectorAll('.next-page-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             document.body.classList.add('page-transition');

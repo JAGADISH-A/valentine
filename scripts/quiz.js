@@ -14,29 +14,23 @@ function createHeart() {
 setInterval(createHeart, 400);
 
 // Teddy Interactions
-const teddy = document.getElementById('teddy');
+const teddyParent = document.getElementById('teddy-parent');
 const input = document.getElementById('answer-input');
-const blushL = document.getElementById('blush-l');
-const blushR = document.getElementById('blush-r');
 const mouth = document.getElementById('mouth');
 
 input.addEventListener('focus', () => {
-    // Blush and hide slightly
-    blushL.style.opacity = '0.6';
-    blushR.style.opacity = '0.6';
-    teddy.style.transform = 'translateY(40px) scale(0.9)';
+    teddyParent.classList.add('teddy-blush');
+    teddyParent.classList.remove('teddy-peek');
 });
 
 input.addEventListener('blur', () => {
-    blushL.style.opacity = '0';
-    blushR.style.opacity = '0';
-    teddy.style.transform = 'translateY(0) scale(1)';
+    teddyParent.classList.remove('teddy-blush');
 });
 
 input.addEventListener('input', () => {
-    // Peek back and smile shyly
-    teddy.style.transform = 'translateY(10px) scale(1.05)';
-    mouth.setAttribute('d', 'M 40 62 Q 50 70 60 62'); // Wider smile
+    teddyParent.classList.add('teddy-peek');
+    teddyParent.classList.remove('teddy-blush');
+    mouth.setAttribute('d', 'M 92 122 Q 100 132 108 122');
 });
 
 // Quiz Logic
@@ -45,6 +39,7 @@ const feedback = document.getElementById('feedback-text');
 const hintBR = document.getElementById('hint-br');
 const hintBL = document.getElementById('hint-bl');
 const hintTR = document.getElementById('hint-tr');
+const quizCard = document.getElementById('quiz-card');
 
 let wrongAttempts = 0;
 
@@ -54,15 +49,11 @@ checkBtn.addEventListener('click', () => {
     if (val === 'sarulatha') {
         feedback.textContent = "You are right chellamm ❤️";
         successTransition();
-    } else if (val === 'displayed') {
-        feedback.textContent = "Of course it’s you… beauty like this can’t be hidden 💕";
-        successTransition();
     } else {
         wrongAttempts++;
         if (wrongAttempts === 1) {
             feedback.textContent = "Hmm… that doesn’t feel right 🤭 Try again!";
-            // Teddy confused
-            mouth.setAttribute('d', 'M 45 65 Q 50 62 55 65');
+            mouth.setAttribute('d', 'M 96 126 Q 100 120 104 126');
         } else if (wrongAttempts >= 2) {
             feedback.innerHTML = `Pssst… if you need help,<br>look at the bottom right corner 👀👉`;
             hintBR.classList.remove('hidden');
@@ -71,42 +62,86 @@ checkBtn.addEventListener('click', () => {
 });
 
 function successTransition() {
-    // Teddy jumps and waves
-    teddy.style.animation = 'jump 0.5s infinite';
-    setInterval(createHeart, 100); // More hearts
+    // 1. Teddy Celebration
+    teddyParent.classList.add('teddy-jump', 'teddy-wave');
 
+    setTimeout(() => {
+        // 2. Hide Quiz Card
+        quizCard.classList.add('fade-out');
+
+        setTimeout(() => {
+            quizCard.style.display = 'none';
+            startRoseBlossom();
+        }, 1500);
+    }, 1500);
+}
+
+function startRoseBlossom() {
+    const roseContainer = document.getElementById('rose-container');
+    const linesContainer = document.getElementById('romantic-lines');
+    const lines = document.querySelectorAll('.romantic-line');
+
+    roseContainer.style.display = 'block';
+    linesContainer.style.display = 'block';
+    setTimeout(() => linesContainer.style.opacity = '1', 50);
+
+    // Spawn all roses at once
+    for (let i = 0; i < 40; i++) {
+        createRose();
+    }
+
+    // Show Romantic Lines Sequentially
+    lines.forEach((line, index) => {
+        setTimeout(() => {
+            line.style.opacity = '1';
+        }, index * 2500);
+    });
+
+    // Final Redirect
     setTimeout(() => {
         document.body.classList.add('page-transition');
         setTimeout(() => {
             window.location.href = 'journey.html';
         }, 800);
-    }, 2500);
+    }, (lines.length * 2500) + 2000);
+}
+
+function createRose() {
+    const container = document.getElementById('rose-container');
+    const rose = document.createElement('img');
+    rose.className = 'rose-img';
+    rose.src = 'assets/rose.png';
+    rose.alt = 'Rose';
+
+    rose.style.left = Math.random() * 100 + 'vw';
+    rose.style.top = Math.random() * 100 + 'vh';
+    rose.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+    container.appendChild(rose);
+    setTimeout(() => rose.remove(), 4000);
 }
 
 // Hint Sequence Logic
 hintBR.addEventListener('click', () => {
-    feedback.innerHTML = `Oops! Wrong side 🙈<br>Now check the bottom left corner 👇`;
+    feedback.innerHTML = `Not here yet 😜<br>Try checking the bottom left corner 👇`;
     hintBL.classList.remove('hidden');
+    hintBR.style.transform = "scale(1.2)";
 });
 
 hintBL.addEventListener('click', () => {
-    feedback.innerHTML = `Okay okay… last one 🤭<br>Look at the TOP RIGHT corner ⬆️➡️`;
-    hintTR.style.opacity = '0.2'; // Start subtle
-    hintTR.style.pointerEvents = 'auto'; // Make it clickable or just visible
-
-    // Smoothly fade in more on interaction or after delay
-    setTimeout(() => {
-        hintTR.style.transition = 'opacity 2s';
-        hintTR.style.opacity = '0.4';
-    }, 100);
+    feedback.innerHTML = `Almost there 😏<br>Now look at the TOP RIGHT corner ⬆️➡️`;
+    hintTR.style.opacity = '0.1';
+    hintTR.style.pointerEvents = 'auto';
+    hintBL.style.transform = "scale(1.2)";
 });
 
-// Add jump animation to CSS via JS for Teddy
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes jump {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-30px); }
-    }
-`;
-document.head.appendChild(style);
+hintTR.addEventListener('click', () => {
+    feedback.innerHTML = "Yes it's you my dear ❤️";
+    input.value = "sarulatha";
+    hintTR.style.transform = "scale(1.5)";
+    hintTR.style.opacity = "1";
+
+    setTimeout(() => {
+        successTransition();
+    }, 1000);
+});

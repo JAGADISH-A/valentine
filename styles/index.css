@@ -27,7 +27,8 @@ body {
     align-items: center;
 }
 
-h1, .romantic-font {
+h1,
+.romantic-font {
     font-family: 'Dancing Script', cursive;
 }
 
@@ -74,10 +75,23 @@ h1, .romantic-font {
 
 /* Floating Hearts Animation */
 @keyframes float {
-    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
 }
 
 .heart {
@@ -90,8 +104,15 @@ h1, .romantic-font {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Transitions */
@@ -100,6 +121,235 @@ h1, .romantic-font {
 }
 
 @keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+/* Teddy Bear Animations */
+#teddy-svg-asset {
+    overflow: visible;
+}
+
+#teddy {
+    animation: breathe 4s ease-in-out infinite;
+    transform-origin: bottom;
+}
+
+@keyframes breathe {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+/* Blinking Eyes */
+#eye-left-group,
+#eye-right-group {
+    animation: blink 5s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    90%,
+    100% {
+        transform: scaleY(1);
+    }
+
+    95% {
+        transform: scaleY(0.1);
+    }
+}
+
+/* Waving Arm */
+.teddy-wave #arm-left {
+    animation: wave 1s ease-in-out infinite;
+}
+
+@keyframes wave {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(-30deg);
+    }
+}
+
+/* Jumping Teddy */
+.teddy-jump {
+    animation: jump 0.6s ease-out infinite !important;
+}
+
+@keyframes jump {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-40px);
+    }
+}
+
+/* Shying / Blush */
+.teddy-blush #blush-left,
+.teddy-blush #blush-right {
+    opacity: 0.8 !important;
+    transition: opacity 0.5s ease;
+}
+
+.teddy-blush #head {
+    transform: rotate(10deg) translateY(10px);
+    transition: transform 0.5s ease;
+}
+
+/* Peek / Typing */
+.teddy-peek {
+    transform: translateY(-20px) !important;
+    transition: transform 0.3s ease;
+}
+
+/* Rose Blossom Animation */
+.rose-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -2;
+    overflow: hidden;
+    display: none;
+}
+
+.rose-svg,
+.rose-img {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    transform-origin: center;
+    object-fit: contain;
+    animation: blossom 2s ease-out forwards;
+}
+
+@keyframes blossom {
+    0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(1.5) rotate(45deg);
+        opacity: 0.6;
+    }
+}
+
+/* Old Letter Styling */
+.letter-card {
+    background: #fdf5e6;
+    /* Old paper color */
+    background-image:
+        radial-gradient(circle at 50% 50%, rgba(200, 150, 100, 0.05) 0%, transparent 100%),
+        repeating-linear-gradient(rgba(0, 0, 0, 0.02) 0px, rgba(0, 0, 0, 0.02) 1px, transparent 1px, transparent 25px);
+    /* Subtle lines */
+    border: 1px solid #d4a373;
+    border-radius: 4px;
+    /* More rectangular like a letter */
+    position: relative;
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.1),
+        0 0 100px rgba(212, 163, 115, 0.1) inset;
+    padding: 3rem 2.5rem;
+    overflow: visible;
+}
+
+.letter-card::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border: 1px solid rgba(212, 163, 115, 0.3);
+    pointer-events: none;
+}
+
+.love-stamp {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background: #c9184a;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 10px rgba(201, 24, 74, 0.3);
+    transform: rotate(15deg);
+    z-index: 20;
+    border: 3px double #ffccd5;
+    animation: stampAppear 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes stampAppear {
+    0% {
+        transform: scale(3) rotate(45deg);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1) rotate(15deg);
+        opacity: 1;
+    }
+}
+
+.letter-card h2 {
+    color: #603813;
+    /* Darker ink color */
+}
+
+#romantic-lines {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 80%;
+    z-index: 100;
+    opacity: 0;
+    display: none;
+    transition: opacity 1s;
+}
+
+.romantic-line {
+    font-size: 2.5rem;
+    color: var(--romantic-red);
+    margin: 20px 0;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+}
+
+.fade-out {
+    animation: fadeOut 1.5s forwards;
 }

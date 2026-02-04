@@ -1,0 +1,61 @@
+<svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" id="teddy-svg-asset" style="overflow: visible;">
+    <g id="teddy">
+        <!-- Body -->
+        <g id="body">
+            <!-- Feet/Paws -->
+            <circle cx="75" cy="210" r="15" fill="#e6b8a2"/>
+            <circle cx="125" cy="210" r="15" fill="#e6b8a2"/>
+            
+            <!-- Main Body -->
+            <circle cx="100" cy="170" r="45" fill="#d4a373" />
+            <circle cx="100" cy="175" r="28" fill="#faedcd" /> <!-- Tummy -->
+            
+            <!-- Small Heart on Chest -->
+            <path d="M 100 165 C 95 155 85 155 85 165 C 85 175 100 185 100 185 C 100 185 115 175 115 165 C 115 155 105 155 100 165" fill="#ff4d6d" />
+
+            <!-- Arms -->
+            <g id="arm-left-group">
+                <circle id="arm-left" cx="55" cy="160" r="15" fill="#d4a373" transform-origin="55 160" />
+            </g>
+            <g id="arm-right-group">
+                <circle id="arm-right" cx="145" cy="160" r="15" fill="#d4a373" transform-origin="145 160" />
+            </g>
+        </g>
+
+        <!-- Head -->
+        <g id="head" transform-origin="100 100">
+            <!-- Ears -->
+            <circle cx="60" cy="65" r="20" fill="#d4a373" />
+            <circle cx="60" cy="65" r="12" fill="#faedcd" />
+            <circle cx="140" cy="65" r="20" fill="#d4a373" />
+            <circle cx="140" cy="65" r="12" fill="#faedcd" />
+            
+            <!-- Face -->
+            <circle cx="100" cy="100" r="50" fill="#d4a373" />
+            
+            <!-- Eyes (Kawaii Style) -->
+            <g id="eye-left-group" transform-origin="75 95">
+                <circle id="eye-left" cx="75" cy="95" r="8" fill="#333" />
+                <circle cx="72" cy="92" r="3" fill="white" /> <!-- Large Shine -->
+                <circle cx="78" cy="98" r="1.5" fill="white" /> <!-- Small Shine -->
+            </g>
+            <g id="eye-right-group" transform-origin="125 95">
+                <circle id="eye-right" cx="125" cy="95" r="8" fill="#333" />
+                <circle cx="122" cy="92" r="3" fill="white" /> <!-- Large Shine -->
+                <circle cx="128" cy="98" r="1.5" fill="white" /> <!-- Small Shine -->
+            </g>
+            
+            <!-- Muzzle Area -->
+            <circle cx="100" cy="115" r="15" fill="#faedcd" />
+            <path d="M 100 110 Q 100 115 100 115" stroke="#333" stroke-width="2" stroke-linecap="round" fill="none" /> <!-- Nose bridge -->
+            <path d="M 97 108 A 3 2 0 1 1 103 108" fill="#603813" /> <!-- Tiny Nose -->
+            
+            <!-- Mouth -->
+            <path id="mouth" d="M 94 122 Q 100 126 106 122" stroke="#333" fill="none" stroke-width="1.5" stroke-linecap="round" />
+            
+            <!-- Blushes -->
+            <circle id="blush-left" cx="65" cy="115" r="8" fill="#ffb3c1" opacity="0" />
+            <circle id="blush-right" cx="135" cy="115" r="8" fill="#ffb3c1" opacity="0" />
+        </g>
+    </g>
+</svg>
