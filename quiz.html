@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who is she? 💖</title>
+    <link rel="stylesheet" href="styles/index.css">
+    <style>
+        .teddy-container {
+            position: absolute;
+            bottom: 0px;
+            right: 10%;
+            width: 150px;
+            transition: all 0.5s ease;
+            z-index: 5;
+        }
+
+        .teddy-img {
+            width: 100%;
+            height: auto;
+            transform-origin: bottom;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .quiz-input {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 15px;
+            border: 2px solid var(--soft-pink);
+            font-size: 1.1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .quiz-input:focus {
+            border-color: var(--primary-pink);
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(255, 77, 109, 0.2);
+        }
+
+        .hint-text {
+            position: fixed;
+            font-size: 0.8rem;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+            user-select: none;
+        }
+
+        .hint-text:hover {
+            opacity: 1;
+        }
+
+        #hint-br {
+            bottom: 20px;
+            right: 20px;
+        }
+
+        #hint-bl {
+            bottom: 20px;
+            left: 20px;
+        }
+
+        #hint-tr {
+            top: 20px;
+            right: 20px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #feedback-text {
+            margin-top: 10px;
+            min-height: 1.5em;
+            color: var(--romantic-red);
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="hearts-container"></div>
+
+    <!-- Hidden Answer in Top Right -->
+    <div id="hint-tr" class="hint-text romantic-font">✨ displayed ✨</div>
+    <div id="hint-br" class="hint-text hidden romantic-font">Not here yet 😜</div>
+    <div id="hint-bl" class="hint-text hidden romantic-font">Almost there 😏</div>
+
+    <div class="glass-card">
+        <h2 class="romantic-font" style="line-height: 1.6;">
+            "A beauty so gentle it quiets the chaos,<br>
+            A smile that makes even the moon jealous,<br>
+            Eyes that feel like home…<br><br>
+            Who am I describing? 💖"
+        </h2>
+
+        <div style="position: relative;">
+            <input type="text" id="answer-input" class="quiz-input" placeholder="Type your answer here, cutie 🥺">
+            <!-- Teddy placeholder - using SVG for simplicity and consistency -->
+            <div class="teddy-container" id="teddy">
+                <svg viewBox="0 0 100 100" class="teddy-img" id="teddy-svg">
+                    <!-- Head -->
+                    <circle cx="50" cy="50" r="30" fill="#d4a373" />
+                    <!-- Ears -->
+                    <circle cx="25" cy="25" r="10" fill="#d4a373" />
+                    <circle cx="75" cy="25" r="10" fill="#d4a373" />
+                    <!-- Face Details -->
+                    <circle cx="40" cy="45" r="3" fill="black" id="eye-l" />
+                    <circle cx="60" cy="45" r="3" fill="black" id="eye-r" />
+                    <circle cx="50" cy="55" r="4" fill="#a98467" /> <!-- Nose -->
+                    <!-- Blushes -->
+                    <circle cx="35" cy="55" r="5" fill="#ffb3c1" opacity="0" id="blush-l" />
+                    <circle cx="65" cy="55" r="5" fill="#ffb3c1" opacity="0" id="blush-r" />
+                    <!-- Mouth -->
+                    <path d="M 45 62 Q 50 65 55 62" stroke="black" fill="transparent" stroke-width="2" id="mouth" />
+                </svg>
+            </div>
+        </div>
+
+        <button id="check-btn" class="btn btn-primary">Check 💌</button>
+        <p id="feedback-text"></p>
+    </div>
+
+    <script src="scripts/quiz.js"></script>
+</body>
+
+</html>

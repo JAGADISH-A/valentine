@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Journey Begins... 🌹</title>
+    <link rel="stylesheet" href="styles/index.css">
+    <style>
+        .typewriter-container {
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .typewriter-line {
+            font-size: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .show {
+            opacity: 1;
+        }
+
+        .rose-img {
+            width: 80px;
+            height: auto;
+            margin-top: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="hearts-container"></div>
+
+    <div class="glass-card">
+        <div class="typewriter-container" id="text-box">
+            <!-- Lines will be injected here -->
+        </div>
+        <button id="enter-btn" class="btn btn-primary hidden" style="margin-top: 30px;">
+            Enter Our World ✨
+        </button>
+    </div>
+
+    <script>
+        const lines = [
+            "Let’s start our journey…",
+            "But before that…",
+            "Don’t roam around empty-handed…",
+            "Keep this rose with youuuu 🌹",
+            "And my kissesss 😘😘 insideee…"
+        ];
+
+        const textBox = document.getElementById('text-box');
+        const enterBtn = document.getElementById('enter-btn');
+        let currentLine = 0;
+
+        function showNextLine() {
+            if (currentLine < lines.length) {
+                const p = document.createElement('p');
+                p.className = 'typewriter-line romantic-font';
+                p.textContent = lines[currentLine];
+                textBox.appendChild(p);
+
+                // Trigger fade in
+                setTimeout(() => p.classList.add('show'), 50);
+
+                currentLine++;
+                setTimeout(showNextLine, 2000);
+            } else {
+                enterBtn.classList.remove('hidden');
+                enterBtn.style.animation = 'fadeIn 1s forwards';
+            }
+        }
+
+        setTimeout(showNextLine, 1000);
+
+        enterBtn.addEventListener('click', () => {
+            document.body.classList.add('page-transition');
+            setTimeout(() => {
+                window.location.href = 'map.html';
+            }, 500);
+        });
+
+        // Background hearts
+        function createHeart() {
+            const container = document.getElementById('hearts-container');
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            container.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 400);
+    </script>
+</body>
+
+</html>

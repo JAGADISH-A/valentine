@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counting Seconds... 💗</title>
+    <link rel="stylesheet" href="styles/index.css">
+    <style>
+        #countdown-section, #invite-section {
+            transition: opacity 1s ease-in-out;
+        }
+        .hidden {
+            display: none !important;
+            opacity: 0;
+        }
+        .countdown-timer {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-pink);
+            margin: 20px 0;
+            text-shadow: 0 0 10px rgba(255, 77, 109, 0.2);
+        }
+        .no-button {
+            position: absolute;
+            z-index: 1000;
+        }
+        #interactive-buttons {
+            position: relative;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="hearts-container"></div>
+
+    <section id="countdown-section" class="glass-card">
+        <h2 class="romantic-font">"Counting every second… because some moments are worth waiting for 💗"</h2>
+        <div id="timer" class="countdown-timer">00:00:00</div>
+    </section>
+
+    <section id="invite-section" class="glass-card hidden">
+        <h1 class="romantic-font">Do you love me?</h1>
+        <div id="interactive-buttons">
+            <button id="yes-btn" class="btn btn-primary">YES ❤️</button>
+            <button id="no-btn" class="btn btn-primary no-button">NO 😈</button>
+        </div>
+        <p id="tease-text" class="romantic-font" style="margin-top: 20px; min-height: 1.5em;"></p>
+    </section>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>
