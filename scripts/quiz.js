@@ -51,6 +51,15 @@ const hintBL = document.getElementById('hint-bl');
 const hintTR = document.getElementById('hint-tr');
 const quizCard = document.getElementById('quiz-card');
 
+// Popup Elements
+const dramaticPopup = document.getElementById('dramatic-popup');
+const popupMessage = document.getElementById('popup-message');
+const closePopupBtn = document.getElementById('close-popup'); // This is now "Try Again"
+const popupGif = document.getElementById('popup-gif');
+const hintConfirmBtns = document.getElementById('hint-confirm-btns');
+const hintYesBtn = document.getElementById('hint-yes');
+const hintNoBtn = document.getElementById('hint-no');
+
 let wrongAttempts = 0;
 
 checkBtn.addEventListener('click', () => {
@@ -61,17 +70,75 @@ checkBtn.addEventListener('click', () => {
         successTransition();
     } else {
         wrongAttempts++;
-        // Toggle between angry1 and angry2 for variety
         bearGif.src = (wrongAttempts % 2 === 0) ? Gifs.angry2 : Gifs.angry;
-
-        if (wrongAttempts === 1) {
-            feedback.textContent = "Hmm… that doesn’t feel right 🤭 Try again!";
-        } else if (wrongAttempts >= 2) {
-            feedback.innerHTML = `Not here yet 😜<br>Try checking the bottom right corner 👀👉`;
-            hintBR.classList.remove('hidden');
-        }
+        handleWrongAnswer();
     }
 });
+
+function handleWrongAnswer() {
+    const motivationalMessages = [
+        "Maa... try again! You're so close! ❤️",
+        "Don't give up, my love! You can do it! ✨",
+        "It's okay, cutie! Try one more time? 🥺",
+        "Almost there! Your heart knows the answer! 💖"
+    ];
+
+    const randomMsg = motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)];
+    popupMessage.textContent = randomMsg;
+    popupGif.src = (wrongAttempts % 2 === 0) ? Gifs.angry2 : Gifs.angry;
+
+    // Show dynamic buttons based on attempts
+    if (wrongAttempts >= 3) {
+        popupMessage.textContent = "Maa... do you want a hint? 🥺";
+        closePopupBtn.classList.add('hidden');
+        hintConfirmBtns.classList.remove('hidden');
+    } else {
+        closePopupBtn.classList.remove('hidden');
+        hintConfirmBtns.classList.add('hidden');
+    }
+
+    dramaticPopup.classList.remove('hidden');
+}
+
+closePopupBtn.addEventListener('click', () => {
+    dramaticPopup.classList.add('hidden');
+    // Always reset button text to "Try Again ❤️" after closing a teaser popup
+    setTimeout(() => {
+        closePopupBtn.textContent = "Try Again ❤️";
+    }, 400);
+});
+
+hintNoBtn.addEventListener('click', () => {
+    dramaticPopup.classList.add('hidden');
+    feedback.textContent = "I know you can do it without hints! 💪";
+});
+
+hintYesBtn.addEventListener('click', () => {
+    dramaticPopup.classList.add('hidden');
+    feedback.textContent = "Check the corners, azhagi! 😉";
+    hintBR.classList.remove('hidden');
+});
+
+function showDramaticPopup(isAngry = true, customMsg = "") {
+    if (isAngry) {
+        popupGif.src = (Math.random() > 0.5) ? Gifs.angry : Gifs.angry2;
+    } else {
+        popupGif.src = Gifs.happy;
+    }
+
+    if (customMsg) popupMessage.textContent = customMsg;
+
+    // Default to "Try Again" button for simple popups
+    closePopupBtn.classList.remove('hidden');
+    if (!isAngry) {
+        closePopupBtn.textContent = "ok 🥺"; // "Yes/Okay" in Tamil for teaser popups
+    } else {
+        closePopupBtn.textContent = "Try Again ❤️";
+    }
+
+    hintConfirmBtns.classList.add('hidden');
+    dramaticPopup.classList.remove('hidden');
+}
 
 function successTransition() {
     // Celebration GIF
@@ -135,13 +202,13 @@ function createRose() {
 
 // Hint Sequence Logic
 hintBR.addEventListener('click', () => {
-    feedback.innerHTML = `Not here yet 😜<br>Try checking the bottom left corner 👇`;
+    showDramaticPopup(false, "answer venumaaaa 😜 Check the left corner!");
     hintBL.classList.remove('hidden');
     hintBR.style.transform = "scale(1.2)";
 });
 
 hintBL.addEventListener('click', () => {
-    feedback.innerHTML = `Almost there 😏<br>Now look at the TOP RIGHT corner ⬆️➡️`;
+    showDramaticPopup(false, "inga illaiye azhagi 😏 Now look at the TOP RIGHT!");
     hintTR.style.opacity = '0.1';
     hintTR.style.pointerEvents = 'auto';
     hintBL.style.transform = "scale(1.2)";

@@ -54,7 +54,26 @@
         .hint-text:hover {
             opacity: 1;
             transform: scale(1.3);
-            text-shadow: 0 0 10px rgba(255, 77, 109, 0.5);
+            text-shadow: 0 0 10px rgba(255, 77, 109, 0.8), 0 0 20px rgba(255, 182, 193, 0.5);
+            color: var(--primary-pink);
+        }
+
+        @keyframes blushGlow {
+            0% {
+                text-shadow: 0 0 5px rgba(255, 77, 109, 0.2);
+            }
+
+            50% {
+                text-shadow: 0 0 15px rgba(255, 77, 109, 0.6);
+            }
+
+            100% {
+                text-shadow: 0 0 5px rgba(255, 77, 109, 0.2);
+            }
+        }
+
+        .hint-text:not(.hidden) {
+            animation: blushGlow 2s infinite;
         }
 
         #hint-br {
@@ -89,8 +108,23 @@
 
     <!-- Hidden Answer in Top Right -->
     <div id="hint-tr" class="hint-text romantic-font">✨ sarulatha ✨</div>
-    <div id="hint-br" class="hint-text hidden romantic-font">Not here yet 😜</div>
-    <div id="hint-bl" class="hint-text hidden romantic-font">Almost there 😏</div>
+    <div id="hint-br" class="hint-text hidden romantic-font">answer venumaaaa 😜</div>
+    <div id="hint-bl" class="hint-text hidden romantic-font">inga illaiye chellakutty😁</div>
+
+    <!-- Dramatic Hint Popup -->
+    <div id="dramatic-popup" class="popup-overlay hidden">
+        <div class="popup-content">
+            <img src="assets/angry.gif" id="popup-gif" alt="Bear">
+            <h2 id="popup-message" class="romantic-font"></h2>
+            <div id="popup-buttons" class="popup-btns-container">
+                <button id="close-popup" class="btn btn-primary">Try Again ❤️</button>
+                <div id="hint-confirm-btns" class="hidden">
+                    <button id="hint-yes" class="btn btn-primary">ok da😁</button>
+                    <button id="hint-no" class="btn btn-secondary">No 🤨</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="quiz-card" class="letter-card">
         <div class="love-stamp">❤️</div>
@@ -101,9 +135,9 @@
             Who am I describing? 💖"
         </h2>
 
-        <div class="teddy-section" style="position: relative; margin-bottom: -15px; z-index: 10;">
+        <div class="teddy-section" style="position: relative; margin-bottom: 20px; z-index: 10;">
             <div class="teddy-container" id="teddy-parent"
-                style="position: relative; width: 170px; margin: 0 auto; bottom: -10px;">
+                style="position: relative; width: 170px; margin: 0 auto; bottom: 0;">
                 <img src="assets/bear.gif" id="bear-gif" class="teddy-img" alt="Cute Bear">
             </div>
         </div>

@@ -50,7 +50,8 @@
 <body>
     <div id="hearts-container"></div>
 
-    <div class="letter-card" style="min-height: 400px; display: flex; flex-direction: column; justify-content: center;">
+    <div class="letter-card floating-card"
+        style="min-height: 400px; display: flex; flex-direction: column; justify-content: center;">
         <div class="love-stamp" style="top: 20px; right: 20px;">❤️</div>
         <div class="typewriter-container" id="text-box">
             <!-- Lines will be injected here -->
@@ -76,7 +77,7 @@
         function showNextLine() {
             if (currentLine < lines.length) {
                 const p = document.createElement('p');
-                p.className = 'typewriter-line romantic-font';
+                p.className = 'typewriter-line romantic-font slide-up-fade';
                 p.textContent = lines[currentLine];
                 textBox.appendChild(p);
 
@@ -84,10 +85,10 @@
                 setTimeout(() => p.classList.add('show'), 50);
 
                 currentLine++;
-                setTimeout(showNextLine, 2000);
+                setTimeout(showNextLine, 2200);
             } else {
                 enterBtn.classList.remove('hidden');
-                enterBtn.style.animation = 'fadeIn 1s forwards';
+                enterBtn.style.animation = 'scaleIn 0.8s forwards';
             }
         }
 
@@ -98,6 +99,13 @@
             setTimeout(() => {
                 window.location.href = 'map.html';
             }, 500);
+        });
+
+        // Mouse Parallax for backgrounds
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            document.getElementById('hearts-container').style.transform = `translate(${moveX}px, ${moveY}px)`;
         });
 
         // Background hearts

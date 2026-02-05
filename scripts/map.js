@@ -122,7 +122,8 @@ function typeWriter(text, elementId) {
         if (i < text.length) {
             el.innerHTML += text.charAt(i);
             i++;
-            setTimeout(type, 50);
+            const randomDelay = Math.random() * 50 + 30; // Random delay between 30ms and 80ms
+            setTimeout(type, randomDelay);
         }
     }
     type();

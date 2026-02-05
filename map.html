@@ -183,32 +183,32 @@
     <div id="hearts-container"></div>
     <div id="nicknames-container"></div>
 
-    <div class="map-container">
+    <div class="map-container" id="map-container">
         <svg class="path-svg">
             <path d="M 160 160 L 400 310 L 700 210 L 810 510 L 460 660" class="path-line" />
         </svg>
 
-        <div class="gift-node" id="gift1" onclick="openGift(1)">
+        <div class="gift-node floating-card" id="gift1" onclick="openGift(1)">
             <div class="gift-icon">🖼️</div>
             <div class="node-label">Photo Frame</div>
         </div>
 
-        <div class="gift-node" id="gift2" onclick="openGift(2)">
+        <div class="gift-node floating-card" id="gift2" onclick="openGift(2)" style="animation-delay: 0.5s;">
             <div class="gift-icon">📸</div>
             <div class="node-label">Our Moments</div>
         </div>
 
-        <div class="gift-node" id="gift3" onclick="openGift(3)">
+        <div class="gift-node floating-card" id="gift3" onclick="openGift(3)" style="animation-delay: 1s;">
             <div class="gift-icon">✨</div>
             <div class="node-label">Beauty Chapter</div>
         </div>
 
-        <div class="gift-node" id="gift4" onclick="openGift(4)">
+        <div class="gift-node floating-card" id="gift4" onclick="openGift(4)" style="animation-delay: 1.5s;">
             <div class="gift-icon">🌙</div>
             <div class="node-label">Unsaid Feelings</div>
         </div>
 
-        <div class="gift-node" id="gift5" onclick="openGift(5)">
+        <div class="gift-node floating-card" id="gift5" onclick="openGift(5)" style="animation-delay: 2s;">
             <div class="gift-icon">💌</div>
             <div class="node-label">Promise Letter</div>
         </div>
@@ -216,13 +216,23 @@
 
     <!-- Modal for Gift Content -->
     <div class="modal" id="gift-modal">
-        <div class="modal-content">
+        <div class="modal-content scale-in-animation">
             <span class="close-modal" onclick="closeModal()">×</span>
             <div id="gift-detail-content">
                 <!-- Dynamic Content Here -->
             </div>
         </div>
     </div>
+
+    <script>
+        // Map tilting effect
+        const map = document.getElementById('map-container');
+        document.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+            map.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+    </script>
 
     <script src="scripts/map.js"></script>
 </body>
