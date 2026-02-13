@@ -1,0 +1,117 @@
+/* Rose Animation Styles */
+
+.rose-element {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: opacity 1s ease-out;
+    will-change: transform, opacity;
+}
+
+.petal-element {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    border-radius: 50% 0 50% 50%;
+    transform-origin: center;
+    will-change: transform, opacity;
+}
+
+.petal-dark {
+    background: #c9184a;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.petal-light {
+    background: #ff4d6d;
+    box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+/* Animations */
+@keyframes rose-spawn {
+    0% {
+        transform: translate(-50%, -50%) scale(0) rotate(var(--start-rot));
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1) rotate(var(--end-rot));
+    }
+}
+
+@keyframes rose-float {
+    0% {
+        transform: translate(calc(-50% + var(--float-x-start)), calc(-50% + var(--float-y-start))) rotate(var(--rot-start));
+    }
+
+    100% {
+        transform: translate(calc(-50% + var(--float-x-end)), calc(-50% + var(--float-y-end))) rotate(var(--rot-end));
+    }
+}
+
+@keyframes bloom-pulse {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        text-shadow: 0 0 10px rgba(255, 77, 109, 0.4);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+        text-shadow: 0 0 25px rgba(255, 77, 109, 0.8);
+    }
+}
+
+@keyframes explosion-burst {
+    0% {
+        transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(var(--scale)) rotate(var(--rot));
+        opacity: 0;
+    }
+}
+
+/* Depth variations */
+.depth-back {
+    filter: blur(2px);
+    z-index: 9997;
+}
+
+.depth-mid {
+    filter: blur(0.5px);
+}
+
+.depth-front {
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+}
+
+.high-res-rose {
+    background-image: url('../assets/rose.png');
+}
+
+/* Sparkle effect */
+.sparkle {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    box-shadow: 0 0 10px white;
+}

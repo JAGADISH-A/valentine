@@ -48,7 +48,7 @@ updateTimer();
 function showInviteSection() {
     document.body.classList.add('page-transition');
     setTimeout(() => {
-        window.location.href = 'quiz.html';
+        window.location.href = 'gift.html';
     }, 500);
 }
 

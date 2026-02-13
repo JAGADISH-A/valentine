@@ -164,11 +164,6 @@ function startRoseBlossom() {
     linesContainer.style.display = 'block';
     setTimeout(() => linesContainer.style.opacity = '1', 50);
 
-    // Spawn all roses at once
-    for (let i = 0; i < 40; i++) {
-        createRose();
-    }
-
     // Show Romantic Lines Sequentially
     lines.forEach((line, index) => {
         setTimeout(() => {
@@ -185,20 +180,6 @@ function startRoseBlossom() {
     }, (lines.length * 2500) + 2000);
 }
 
-function createRose() {
-    const container = document.getElementById('rose-container');
-    const rose = document.createElement('img');
-    rose.className = 'rose-img';
-    rose.src = 'assets/rose.png';
-    rose.alt = 'Rose';
-
-    rose.style.left = Math.random() * 100 + 'vw';
-    rose.style.top = Math.random() * 100 + 'vh';
-    rose.style.transform = `rotate(${Math.random() * 360}deg)`;
-
-    container.appendChild(rose);
-    setTimeout(() => rose.remove(), 4000);
-}
 
 // Hint Sequence Logic
 hintBR.addEventListener('click', () => {

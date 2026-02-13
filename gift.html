@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Gift for You... 💖</title>
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/animations.css">
+    <style>
+        .gift-image-container {
+            position: relative;
+            margin: 20px 0;
+            perspective: 1000px;
+        }
+
+        .gift-image {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.3);
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .gift-image:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        #gift-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .gift-message {
+            font-size: 1.4rem;
+            color: var(--text-color);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="hearts-container"></div>
+
+    <section id="gift-section" class="glass-card floating-card">
+        <h1 class="romantic-font">"Your special gift is here, my angel... 🎁"</h1>
+
+        <div class="gift-image-container">
+            <img src="assets/gift card.png" alt="Gift Card" class="gift-image">
+        </div>
+
+        <p class="gift-message romantic-font">"Because you deserve all the magic in the world."</p>
+
+        <button id="open-gift-btn" class="btn btn-primary">
+            Accept My Love 💌
+        </button>
+    </section>
+
+    <script>
+        // Heart Animation
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            document.getElementById('hearts-container').appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+        setInterval(createHeart, 300);
+
+        // Redirect logic
+        document.getElementById('open-gift-btn').addEventListener('click', () => {
+            document.body.classList.add('page-transition');
+            setTimeout(() => {
+                window.location.href = 'quiz.html';
+            }, 500);
+        });
+    </script>
+    <script src="scripts/animations.js"></script>
+</body>
+
+</html>
