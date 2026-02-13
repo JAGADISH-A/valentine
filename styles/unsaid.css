@@ -1,0 +1,412 @@
+/* Unsaid Feelings Gift Styles - Redesigned for Desktop IG Stories Layout */
+
+:root {
+    --unsaid-cream: #FFF5EB;
+    --unsaid-coral: #FF9B85;
+    --unsaid-burgundy: #8B4545;
+    --unsaid-vinyl: #1a1a1a;
+    --unsaid-bg-light: #FFFEF9;
+}
+
+#unsaid-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--unsaid-cream);
+    z-index: 2000;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+#unsaid-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+/* Envelope Styling */
+.envelope-wrapper {
+    position: relative;
+    width: 350px;
+    height: 250px;
+    background: #fdfdfd;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.envelope-wrapper:hover {
+    transform: scale(1.02);
+}
+
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fdfdfd;
+    clip-path: polygon(0 0, 50% 50%, 100% 0);
+    z-index: 2;
+    transition: transform 0.8s ease-in-out;
+    transform-origin: top;
+    border: 1px solid #eee;
+}
+
+.envelope-wrapper.open .envelope-flap {
+    transform: rotateX(180deg);
+}
+
+.wax-seal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    background: #c9184a;
+    border-radius: 50%;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s;
+}
+
+.envelope-wrapper.open .wax-seal {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.envelope-text {
+    font-family: 'Dancing Script', cursive;
+    color: var(--unsaid-burgundy);
+    text-align: center;
+    z-index: 1;
+}
+
+/* Redesigned Gift Player Interface */
+.gift-player {
+    width: 100%;
+    height: 100%;
+    display: none;
+    grid-template-columns: 45% 55%;
+    background: white;
+    position: relative;
+    animation: fadeIn 0.5s forwards;
+}
+
+.gift-player.active {
+    display: grid;
+}
+
+/* Left Panel: Messages & Progress */
+.left-panel {
+    background: var(--unsaid-bg-light);
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    border-right: 1px solid #eee;
+}
+
+.stories-progress-container {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    right: 30px;
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.story-bar {
+    height: 3px;
+    background: #e0e0e0;
+    flex: 1;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+
+.story-bar-fill {
+    height: 100%;
+    background: var(--unsaid-coral);
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+.story-bar.completed .story-bar-fill {
+    width: 100% !important;
+}
+
+.message-content {
+    max-width: 500px;
+}
+
+.personal-message {
+    font-family: 'Kalam', cursive;
+    font-size: 1.8rem;
+    line-height: 1.7;
+    color: var(--unsaid-burgundy);
+    margin-bottom: 30px;
+    text-align: left;
+    white-space: pre-line;
+}
+
+.message-signature {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5rem;
+    color: var(--unsaid-coral);
+    text-align: left;
+}
+
+/* Right Panel: Vinyl & Player */
+.right-panel {
+    background: linear-gradient(135deg, #FFF5EB 0%, #FFE5D4 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.vinyl-container {
+    position: relative;
+    width: 450px;
+    height: 450px;
+    margin-bottom: 40px;
+}
+
+.vinyl-record {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #333 0%, #111 40%, #000 100%);
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+    animation: vinylRotate 5s linear infinite;
+    animation-play-state: paused;
+}
+
+.vinyl-record.playing {
+    animation-play-state: running;
+}
+
+.vinyl-record::before {
+    content: '';
+    position: absolute;
+    width: 98%;
+    height: 98%;
+    border-radius: 50%;
+    background: repeating-radial-gradient(circle at center,
+            transparent 0,
+            transparent 2px,
+            rgba(255, 255, 255, 0.05) 3px,
+            transparent 4px);
+}
+
+.vinyl-shine {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: conic-gradient(from 0deg,
+            transparent 0deg,
+            rgba(255, 255, 255, 0.05) 45deg,
+            transparent 90deg,
+            rgba(255, 255, 255, 0.05) 135deg,
+            transparent 180deg,
+            rgba(255, 255, 255, 0.05) 225deg,
+            transparent 270deg,
+            rgba(255, 255, 255, 0.05) 315deg,
+            transparent 360deg);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.vinyl-photo-label {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: white;
+    padding: 10px;
+    z-index: 5;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.vinyl-photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.audio-controls {
+    width: 100%;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.audio-info {
+    font-size: 0.9rem;
+    color: var(--unsaid-burgundy);
+    font-weight: 600;
+}
+
+.audio-main-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--unsaid-burgundy);
+    transition: transform 0.2s;
+}
+
+.control-btn:hover {
+    transform: scale(1.1);
+}
+
+.play-pause-btn {
+    width: 50px;
+    height: 50px;
+    background: var(--unsaid-coral);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+/* Animations */
+.rotating {
+    animation: vinylRotate 5s linear infinite;
+}
+
+@keyframes vinylRotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Nav Arrows */
+.nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    pointer-events: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+    z-index: 100;
+}
+
+.arrow-btn {
+    pointer-events: auto;
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    color: var(--unsaid-coral);
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+.arrow-btn:hover {
+    background: white;
+    transform: scale(1.1);
+}
+
+/* Mobile Fallback */
+@media (max-width: 1024px) {
+    .gift-player {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        overflow-y: auto;
+    }
+
+    .left-panel {
+        padding: 60px 30px 30px;
+        border-right: none;
+        border-bottom: 1px solid #eee;
+    }
+
+    .right-panel {
+        padding: 30px;
+    }
+
+    .vinyl-container {
+        width: 300px;
+        height: 300px;
+    }
+
+    .vinyl-photo-label {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+.player-close-top {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.1);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1000;
+    line-height: 40px;
+    text-align: center;
+}

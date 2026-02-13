@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="styles/animations.css">
     <link rel="stylesheet" href="styles/heart.css">
     <link rel="stylesheet" href="styles/timeline.css">
+    <link rel="stylesheet" href="styles/unsaid.css">
     <style>
         body {
             display: block;
@@ -325,14 +326,17 @@
         <div class="timeline-header">
             <button class="back-btn" onclick="closeTimeline()">← Back to Map</button>
             <h1>Our Beauty Chapter</h1>
-            <p id="memory-counter">0 Beautiful Moments Together</p>
+            <div id="timeline-stats" class="timeline-stats">
+                <!-- Stats injected by JS -->
+            </div>
+            <p id="memory-counter" style="display: none;">0 Beautiful Moments Together</p>
         </div>
 
         <div class="timeline-container" id="timeline-container">
             <!-- Milestones will be injected here -->
         </div>
 
-        <button class="add-milestone-btn" onclick="addNewMilestone()">+ Add New Memory ✨</button>
+
     </div>
 
     <!-- Modal for Gift Content -->
@@ -341,6 +345,54 @@
             <span class="close-modal" onclick="closeModal()">×</span>
             <div id="gift-detail-content">
                 <!-- Dynamic Content Here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Unsaid Feelings (Digital Gift) Overlay (Redesigned) -->
+    <div id="unsaid-overlay">
+        <div class="envelope-wrapper" id="envelope-wrapper" onclick="startUnsaidGift()">
+            <div class="envelope-flap"></div>
+            <div class="wax-seal">❤️</div>
+            <div class="envelope-text">
+                <p style="margin-top: 60px;">To: My Cutie Pie</p>
+                <p style="margin: 10px 0;">From: Your Love</p>
+                <p style="font-size: 0.8rem; opacity: 0.7;">Click to Open</p>
+            </div>
+        </div>
+
+        <div class="gift-player" id="gift-player">
+            <button class="player-close-top" onclick="closeUnsaidGift()">×</button>
+            <div class="left-panel">
+                <div class="stories-progress-container" id="stories-progress">
+                    <!-- Progress bars injected by JS -->
+                </div>
+                <div class="message-content" id="message-content">
+                    <!-- Message injected by JS -->
+                </div>
+            </div>
+            <div class="right-panel">
+                <div class="vinyl-container" id="vinyl-container">
+                    <!-- Vinyl injected by JS -->
+                </div>
+                <div class="audio-controls">
+                    <div class="audio-info" id="audio-info">Playing Voice Note...</div>
+                    <div class="audio-main-controls">
+                        <button class="control-btn" onclick="prevUnsaidPage()">⏮</button>
+                        <button class="control-btn play-pause-btn" id="play-pause-btn"
+                            onclick="toggleAudio()">▶</button>
+                        <button class="control-btn" onclick="nextUnsaidPage()">⏭</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hidden Audio Element -->
+            <audio id="unsaid-audio" preload="auto"></audio>
+
+            <!-- Nav Arrows for manual control -->
+            <div class="nav-arrow">
+                <button class="arrow-btn" onclick="prevUnsaidPage()">←</button>
+                <button class="arrow-btn" onclick="nextUnsaidPage()">→</button>
             </div>
         </div>
     </div>
