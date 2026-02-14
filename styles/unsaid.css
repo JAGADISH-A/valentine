@@ -173,6 +173,100 @@
     font-size: 1.5rem;
     color: var(--unsaid-coral);
     text-align: left;
+    margin-top: 20px;
+}
+
+/* --- Live Lyrics Styles --- */
+.lyrics-container {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: hidden;
+    position: relative;
+    padding: 20px 0;
+}
+
+.lyrics-scroll {
+    width: 100%;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lyric-line {
+    font-family: 'Kalam', cursive;
+    font-size: 1.8rem;
+    line-height: 1.6;
+    color: var(--unsaid-burgundy);
+    margin: 25px 0;
+    transition: all 0.5s ease;
+    position: relative;
+    text-align: left;
+    transform-origin: left;
+}
+
+.lyric-line.previous {
+    opacity: 0.35;
+    font-size: 1.5rem;
+    transform: translateY(-10px) scale(0.95);
+}
+
+.lyric-line.current {
+    opacity: 1;
+    font-size: 2.2rem;
+    font-weight: 600;
+    transform: scale(1.05);
+}
+
+.lyric-line.next {
+    opacity: 0.6;
+    font-size: 1.7rem;
+}
+
+.lyric-line.upcoming {
+    opacity: 0.2;
+    font-size: 1.4rem;
+}
+
+.line-progress-container {
+    width: 100%;
+    height: 4px;
+    background: #f0f0f0;
+    border-radius: 2px;
+    margin-top: 10px;
+    overflow: hidden;
+    display: none;
+}
+
+.lyric-line.current .line-progress-container {
+    display: block;
+}
+
+.line-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--unsaid-coral), #FF7BA5);
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+.current-indicator {
+    color: var(--unsaid-coral);
+    margin-right: 15px;
+    font-size: 1.2rem;
+    display: inline-block;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
 }
 
 /* Right Panel: Vinyl & Player */
@@ -409,4 +503,498 @@
     z-index: 1000;
     line-height: 40px;
     text-align: center;
+}
+
+/* --- Final Letter Display Styles --- */
+.letter-display {
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: var(--unsaid-cream);
+    padding: 40px;
+    animation: fadeIn 0.8s forwards;
+    position: relative;
+    z-index: 10;
+}
+
+.letter-display.active {
+    display: flex;
+}
+
+.letter-paper {
+    background: #fff;
+    width: 90%;
+    max-width: 700px;
+    min-height: 70vh;
+    padding: 60px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    position: relative;
+    background-image:
+        linear-gradient(rgba(200, 200, 200, 0.1) 1px, transparent 1px);
+    background-size: 100% 2.5rem;
+    border-radius: 2px;
+    transform: rotate(-1deg);
+    animation: letterPop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Added to contain rising letters */
+}
+
+/* --- Anti-Gravity Letter Animation --- */
+.gravity-text {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    perspective: 1000px;
+}
+
+.gravity-letter {
+    display: inline-block;
+    font-family: 'Dancing Script', cursive;
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #ffb7c5;
+    /* Soft pink / Rose gold base */
+    background: linear-gradient(135deg, #ffb7c5 0%, #ff8fa3 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+    text-shadow: 0 0 15px rgba(255, 183, 197, 0.4);
+    opacity: 0;
+    transform: translateY(100vh) rotate(0deg);
+    animation:
+        antiGravityRise 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.15) forwards,
+        gentleBreathe 4s ease-in-out infinite 2.5s;
+    transition: all 0.3s ease;
+}
+
+.gravity-letter:hover {
+    transform: scale(1.2) rotate(var(--bob-rot)) !important;
+    filter: drop-shadow(0 0 20px var(--unsaid-coral));
+}
+
+@keyframes antiGravityRise {
+    0% {
+        opacity: 0;
+        transform: translateY(100vh) rotate(var(--start-rot));
+    }
+
+    70% {
+        opacity: 1;
+        transform: translateY(-30px) rotate(var(--mid-rot));
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+
+@keyframes gentleBreathe {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateY(var(--bob-y)) rotate(var(--bob-rot));
+    }
+
+    50% {
+        transform: translateY(calc(var(--bob-y) * -1)) rotate(calc(var(--bob-rot) * -1));
+    }
+
+    75% {
+        transform: translateY(var(--bob-y)) rotate(var(--bob-rot));
+    }
+}
+
+
+.letter-paper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top right, rgba(255, 155, 133, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.letter-content {
+    font-family: 'Dancing Script', cursive;
+    color: var(--unsaid-burgundy);
+    position: relative;
+    z-index: 1;
+}
+
+.letter-text p {
+    margin-bottom: 1.5rem;
+    font-family: 'Kalam', cursive;
+    font-size: 1.2rem;
+    line-height: 2.2;
+}
+
+.letter-footer {
+    margin-top: auto;
+    padding-top: 30px;
+    text-align: center;
+}
+
+@keyframes letterPop {
+    from {
+        opacity: 0;
+        transform: translateY(50px) rotate(0deg) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) rotate(-1deg) scale(1);
+    }
+}
+
+/* Mobile Adjustments for Letter */
+@media (max-width: 768px) {
+    .letter-paper {
+        padding: 30px;
+        width: 95%;
+        min-height: 60vh;
+    }
+}
+
+/* --- Vintage Cinema Ticket Styles --- */
+.ticket-carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 30px;
+    padding: 20px 10px;
+    width: 100%;
+    scrollbar-width: none;
+    /* Hide scrollbar Firefox */
+}
+
+.ticket-carousel::-webkit-scrollbar {
+    display: none;
+    /* Hide scrollbar Chrome/Safari */
+}
+
+.vintage-ticket {
+    flex: 0 0 calc(100% - 20px);
+    max-width: 550px;
+    height: 250px;
+    background: #fdf6e3;
+    border: 2px solid #555;
+    position: relative;
+    display: flex;
+    scroll-snap-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    color: #333;
+    cursor: grab;
+}
+
+.vintage-ticket:active {
+    cursor: grabbing;
+}
+
+/* Aged Texture Overlay */
+.vintage-ticket::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 50% 50%, transparent 60%, rgba(0, 0, 0, 0.05) 100%),
+        url('https://www.transparenttextures.com/patterns/parchment.png');
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Ticket Stub Perforation */
+.ticket-stub {
+    width: 120px;
+    border-right: 2px dashed #888;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.03);
+    padding: 10px;
+}
+
+/* Rounded Perforation Holes */
+.vintage-ticket::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 120px;
+    width: 30px;
+    height: 30px;
+    background: var(--unsaid-cream);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 -125px 0 var(--unsaid-cream), 0 125px 0 var(--unsaid-cream);
+    z-index: 6;
+}
+
+.stub-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2px;
+    font-size: 1.2rem;
+    color: #666;
+    text-transform: uppercase;
+}
+
+.void-text {
+    font-size: 0.6rem;
+    color: #999;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+/* Main Ticket Body */
+.ticket-main {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    border-left: 2px dashed #888;
+}
+
+.ticket-header {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    text-align: center;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.ticket-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 10px 0;
+    line-height: 1.1;
+}
+
+.ticket-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    margin: 10px 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 10px;
+}
+
+.detail-item span {
+    display: block;
+    font-size: 0.6rem;
+    color: #777;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.ticket-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.ticket-no {
+    color: #c44;
+}
+
+/* Theme Variants */
+.ticket-red {
+    border-color: #a33;
+    border-width: 4px;
+}
+
+.ticket-red .ticket-header {
+    color: #a33;
+}
+
+.ticket-red .ticket-title {
+    color: #822;
+}
+
+.ticket-gold {
+    border-color: #b81;
+    border-width: 4px;
+}
+
+.ticket-gold .ticket-header {
+    color: #b81;
+}
+
+.ticket-gold .ticket-title {
+    color: #971;
+}
+
+.ticket-gold .ticket-stub {
+    background: rgba(184, 136, 17, 0.05);
+}
+
+.ticket-pink {
+    border-color: #d68;
+    border-width: 4px;
+}
+
+.ticket-pink .ticket-header {
+    color: #d68;
+}
+
+.ticket-pink .ticket-title {
+    color: #b46;
+}
+
+.ticket-teal {
+    border-color: #288;
+    border-width: 4px;
+}
+
+.ticket-teal .ticket-header {
+    color: #288;
+}
+
+.ticket-teal .ticket-title {
+    color: #166;
+}
+
+.ticket-mint {
+    border-color: #286;
+    border-width: 4px;
+}
+
+.ticket-mint .ticket-header {
+    color: #286;
+}
+
+.ticket-mint .ticket-title {
+    color: #164;
+}
+
+/* Classic Vintage Button */
+.classic-vintage-btn {
+    background: #fdf6e3;
+    border: 3px double #333;
+    color: #333;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    padding: 12px 30px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
+    margin-top: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.classic-vintage-btn:hover {
+    background: #333;
+    color: #fdf6e3;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+.classic-vintage-btn:active {
+    transform: translate(0, 0);
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Dramatic Dramatic Message Overlay */
+.dramatic-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease;
+}
+
+.dramatic-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.dramatic-message {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    color: #fdf6e3;
+    text-align: center;
+    padding: 20px;
+    transform: scale(0.5);
+    transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-shadow: 0 0 20px rgba(253, 246, 227, 0.5);
+    white-space: pre-wrap;
+    /* Support \n in textContent */
+}
+
+.dramatic-overlay.active .dramatic-message {
+    transform: scale(1);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .vintage-ticket {
+        height: 220px;
+        flex: 0 0 100%;
+    }
+
+    .ticket-stub {
+        width: 80px;
+    }
+
+    .vintage-ticket::after {
+        left: 80px;
+    }
+
+    .ticket-title {
+        font-size: 1.4rem;
+    }
+
+    .ticket-details {
+        font-size: 0.7rem;
+    }
+
+    .dramatic-message {
+        font-size: 2rem;
+    }
 }

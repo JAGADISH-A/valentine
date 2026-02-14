@@ -228,10 +228,10 @@ const gifts = {
         type: "beauty"
     },
     4: {
-        title: "GIFT 4 – UNSAID FEELINGS",
-        img: "🌙",
-        text: "I may not be perfect… But every version of me… Chooses you.",
-        type: "feelings"
+        title: "GIFT 4 – LOYALTY COUPON",
+        img: "👑",
+        text: "Forever Devoted to My Queen",
+        type: "coupon"
     },
     5: {
         title: "GIFT 5 – PROMISE LETTER (FINAL)",
@@ -250,12 +250,22 @@ function openGift(id) {
     }
 
     if (id === 3) {
+        if (unlockedStep === 3) {
+            unlockedStep = 4;
+            saveProgress();
+            renderGifts();
+        }
         openTimeline();
         return;
     }
 
     if (id === 4) {
-        openUnsaidOverlay();
+        openLoyaltyCoupon();
+        return;
+    }
+
+    if (id === 5) {
+        openFinalLetterGift();
         return;
     }
 
@@ -447,7 +457,7 @@ function openTimeline() {
     }, 10);
 
     // Unlock next step
-    if (unlockedStep === 3) unlockedStep = 4;
+    if (unlockedStep === 3) unlockedStep = 5;
 }
 
 function closeTimeline() {
@@ -535,63 +545,168 @@ function animateMilestones() {
 
 
 
-// --- Unsaid Feelings Digital Gift Logic (Redesigned for IG Stories) ---
+// --- Standalone Loyalty Coupon Logic ---
 
-const unsaidData = [
-    {
-        photo: "assets/saree.jpeg",
-        audio: "assets/audio/page-1.mp3",
-        message: "From the moment I saw you, I knew my heart had found its home.\n\nEvery second since then has been a blessing I never expected.",
-        signature: "- Your Jagadish"
-    },
-    {
-        photo: "assets/latha1.png",
-        audio: "assets/audio/page-2.mp3",
-        message: "June 16, 2025\nEEE Exam Day\n\nYou sent a cold message. I never talked to you.\n\nI had no idea this was the beginning of everything beautiful in my life.",
-        signature: "- Your Love"
-    },
-    {
-        photo: "assets/firstanniversary.jpeg",
-        audio: "assets/audio/page-3.mp3",
-        message: "July - August 2024\n\nYou reached out for 'doubts'. We talked about studies, then about life, family, dreams...\n\nYou said 'You're my friend'. I got butterflies 🦋",
-        signature: "- Your Friend (then more)"
-    },
-    {
-        photo: "assets/firstanniversary2.jpeg",
-        audio: "assets/audio/page-4.mp3",
-        message: "September 8, 2:00 AM\n\nYou proposed. In the quiet of the night, you changed everything.\n\nI loved you, but I said 'After 2 years, I'll come for you'.",
-        signature: "- That Vulnerable Night"
-    },
-    {
-        photo: "assets/mylove2.jpeg",
-        audio: "assets/audio/page-5.mp3",
-        message: "September 8, 2:00 PM\n\nThe same day, I couldn't wait. I accepted your love.\n\nBest decision I ever made. We became 'us' ❤️",
-        signature: "- Our Official Day"
-    },
-    {
-        photo: "assets/latha3.gif",
-        audio: "assets/audio/page-6.mp3",
-        message: "November 16 - First Date\nDecember 2 - Second Date\n\nEvery moment with you is a treasure I'll cherish forever.\n\nYour laugh, your smile, your soul.",
-        signature: "- Forever Yours"
-    },
-    {
-        photo: "assets/ours.png",
-        audio: "assets/audio/page-7.mp3",
-        message: "These words I've never said...\n\nYou are my home. You are my peace. You are my forever.\n\n[Every unsaid feeling is for you]",
-        signature: "- Your Everything"
-    },
-    {
-        photo: "assets/last.jpeg",
-        audio: "assets/audio/page-8.mp3",
-        message: "February 2026 and beyond\n\nThis is just the beginning. Our love story continues...\n\nThank you for being mine. I love you more than words.\n\n- my cutie pie 💕",
-        signature: "- Always & Forever"
+function openLoyaltyCoupon() {
+    const modal = document.getElementById('gift-modal');
+    const content = document.getElementById('gift-detail-content');
+
+    content.innerHTML = `
+        <div class="ticket-header-label" style="text-align: center; font-family: 'Bebas Neue', sans-serif; letter-spacing: 2px; color: #888; margin-bottom: 10px;">
+            Swipe to view your collection
+        </div>
+        <div class="ticket-carousel">
+            <!-- Ticket 1: Movie Marathon -->
+            <div class="vintage-ticket ticket-red">
+                <div class="ticket-stub">
+                    <div class="stub-text">CINEMA ADMIT TWO</div>
+                    <div class="void-text">VOID IF DETACHED</div>
+                </div>
+                <div class="ticket-main">
+                    <div class="ticket-header">VINTAGE RED CINEMA</div>
+                    <div class="ticket-title">MOVIE MARATHON NIGHT</div>
+                    <div class="ticket-details">
+                        <div class="detail-item"><span>Row</span>Couch</div>
+                        <div class="detail-item"><span>Seat</span>Cuddle Position</div>
+                        <div class="detail-item" style="grid-column: span 2;"><span>Duration</span>Until We Fall Asleep</div>
+                    </div>
+                    <div class="ticket-footer">
+                        <div class="ticket-no">№ 0616-2024</div>
+                        <div>🍿 FILM REEL SPECIAL</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ticket 2: One Day as Queen -->
+            <div class="vintage-ticket ticket-gold">
+                <div class="ticket-stub">
+                    <div class="stub-text">ROYAL DECREE</div>
+                    <div class="void-text">VOID IF DETACHED</div>
+                </div>
+                <div class="ticket-main">
+                    <div class="ticket-header">PALACE SERVICES</div>
+                    <div class="ticket-title">ONE DAY AS QUEEN</div>
+                    <div class="ticket-details">
+                        <div class="detail-item" style="grid-column: span 2;"><span>Entitlement</span>24 Hours of Pampered Royalty</div>
+                        <div class="detail-item" style="grid-column: span 2;"><span>Valid</span>Any Day of Your Choice</div>
+                    </div>
+                    <div class="ticket-footer">
+                        <div class="ticket-no">№ QUEEN-888</div>
+                        <div>👑 ROYAL CREST</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ticket 3: Unlimited Hugs & Kisses -->
+            <div class="vintage-ticket ticket-pink">
+                <div class="ticket-stub">
+                    <div class="stub-text">LIFETIME PASS</div>
+                    <div class="void-text">VOID IF DETACHED</div>
+                </div>
+                <div class="ticket-main">
+                    <div class="ticket-header">HEART TRANSIT CO.</div>
+                    <div class="ticket-title">UNLIMITED HUGS & KISSES</div>
+                    <div class="ticket-details">
+                        <div class="detail-item"><span>Route</span>Heart to Heart</div>
+                        <div class="detail-item"><span>Status</span>Non-transferable</div>
+                        <div class="detail-item" style="grid-column: span 2;"><span>Expires</span>Never</div>
+                    </div>
+                    <div class="ticket-footer">
+                        <div class="ticket-no">№ LOVE-143</div>
+                        <div>❤️ LIFETIME PASS</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ticket 4: Adventure Day -->
+            <div class="vintage-ticket ticket-teal">
+                <div class="ticket-stub">
+                    <div class="stub-text">TRAVEL VOUCHER</div>
+                    <div class="void-text">VOID IF DETACHED</div>
+                </div>
+                <div class="ticket-main">
+                    <div class="ticket-header">WANDERLUST AIRWAYS</div>
+                    <div class="ticket-title">ADVENTURE AWAITS</div>
+                    <div class="ticket-details">
+                        <div class="detail-item" style="grid-column: span 2;"><span>Activity</span>One Spontaneous Adventure</div>
+                        <div class="detail-item"><span>Destination</span>Your Choice</div>
+                        <div class="detail-item"><span>Departure</span>Anytime</div>
+                    </div>
+                    <div class="ticket-footer">
+                        <div class="ticket-no">№ ADV-555</div>
+                        <div>📍 COMPASS ROSE</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ticket 5: Breakfast in Bed -->
+            <div class="vintage-ticket ticket-mint">
+                <div class="ticket-stub">
+                    <div class="stub-text">DINER SPECIAL</div>
+                    <div class="void-text">VOID IF DETACHED</div>
+                </div>
+                <div class="ticket-main">
+                    <div class="ticket-header">SUNRISE CAFE</div>
+                    <div class="ticket-title">BREAKFAST IN BED ROYALE</div>
+                    <div class="ticket-details">
+                        <div class="detail-item"><span>Chef's Special</span>Includes: Coffee, Kisses & Cuddles</div>
+                        <div class="detail-item"><span>Service</span>Served with Love</div>
+                    </div>
+                    <div class="ticket-footer">
+                        <div class="ticket-no">№ BFAST-101</div>
+                        <div>☕ RETRO DINER</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 20px; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+            <button class="classic-vintage-btn" onclick="closeModal(); unlockNextFromCoupon();">Accept with Love ❤️</button>
+            <button class="classic-vintage-btn" style="background: var(--unsaid-burgundy); font-size: 0.9rem; padding: 10px 25px;" onclick="window.location.href='coupon-session.html'">✨ Enter Immersive Session ✨</button>
+        </div>
+    `;
+
+    modal.classList.add('active');
+}
+
+function unlockNextFromCoupon() {
+    // Funny Dramatic Message Trigger - Show it regardless of state for better experience
+    showDramaticMessage("You have successfully availed all the Coupons of Love with 'The Product: Jagan'! \n\n With all my love, Jagan ❤️ (No refunds, no returns!) 😂");
+
+    if (unlockedStep === 4) {
+        unlockedStep = 5;
+        saveProgress();
+        renderGifts();
     }
-];
+}
 
-let currentUnsaidPage = 0;
-let progressInterval = null;
+function showDramaticMessage(text) {
+    let overlay = document.getElementById('dramatic-overlay');
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.id = 'dramatic-overlay';
+        overlay.className = 'dramatic-overlay';
+        overlay.innerHTML = `<div class="dramatic-message"></div>`;
+        document.body.appendChild(overlay);
 
-function openUnsaidOverlay() {
+        overlay.onclick = () => {
+            overlay.classList.remove('active');
+        };
+    }
+
+    const messageEl = overlay.querySelector('.dramatic-message');
+    messageEl.textContent = text;
+
+    overlay.classList.add('active');
+
+    // Automatically fade out after 5 seconds if not clicked
+    setTimeout(() => {
+        overlay.classList.remove('active');
+    }, 5000);
+}
+
+// --- Final Promise Letter Logic ---
+
+function openFinalLetterGift() {
     const overlay = document.getElementById('unsaid-overlay');
     const envelope = document.getElementById('envelope-wrapper');
     const player = document.getElementById('gift-player');
@@ -600,153 +715,82 @@ function openUnsaidOverlay() {
     envelope.classList.remove('open');
     envelope.style.display = 'flex';
     player.classList.remove('active');
-    currentUnsaidPage = 0;
-
-    // Stop any playing audio
-    const audio = document.getElementById('unsaid-audio');
-    if (audio) {
-        audio.pause();
-        audio.currentTime = 0;
-    }
 }
 
-function startUnsaidGift() {
+function startFinalLetter() {
     const envelope = document.getElementById('envelope-wrapper');
     const player = document.getElementById('gift-player');
+    const content = document.getElementById('final-letter-content');
 
     envelope.classList.add('open');
+
+    // Prepare letter content - COUPON REMOVED
+    content.innerHTML = `
+        <h2 class="romantic-font" style="font-size: 2.5rem; color: var(--unsaid-burgundy); margin-bottom: 20px;">My Dearest Latha,</h2>
+        <div class="letter-text" style="font-family: 'Poppins', sans-serif; line-height: 1.8; font-size: 1.1rem; color: #444; text-align: left;">
+            <p>From a simple EEE exam message to the most beautiful love story of my life, every moment with you has been a treasure. You are my home, my peace, and my forever.</p>
+            <p>I promise to choose you every single day, to hold your hand through every storm, and to love you more than words, more than songs, and more than forever. ♾️❤️</p>
+        </div>
+        
+        <div id="anti-gravity-container" class="gravity-text"></div>
+    `;
 
     setTimeout(() => {
         envelope.style.display = 'none';
         player.classList.add('active');
-        initUnsaidGift();
+
+        // Generate anti-gravity text
+        createAnimatedText("Happy Valentine's Day", "anti-gravity-container");
+
+        setupLetterKeyboardNav();
     }, 1200);
 }
 
-function initUnsaidGift() {
-    currentUnsaidPage = 0;
-    renderUnsaidPage();
-    setupKeyboardNav();
-}
+function createAnimatedText(text, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = '';
 
-function renderUnsaidPage() {
-    const msgContent = document.getElementById('message-content');
-    const vinylContainer = document.getElementById('vinyl-container');
-    const progressContainer = document.getElementById('stories-progress');
-    const audio = document.getElementById('unsaid-audio');
-    const data = unsaidData[currentUnsaidPage];
+    text.split('').forEach((char, index) => {
+        const span = document.createElement('span');
+        span.className = 'gravity-letter';
+        span.textContent = char === ' ' ? '\u00A0' : char; // Handle spaces
 
-    // Render Story Progress Bars
-    progressContainer.innerHTML = unsaidData.map((_, i) => `
-        <div class="story-bar ${i < currentUnsaidPage ? 'completed' : ''}">
-            <div class="story-bar-fill" id="bar-fill-${i}"></div>
-        </div>
-    `).join('');
+        // Random organic properties as requested
+        const baseDelay = index * 100; // 100ms sequential delay
+        const randomDelay = Math.random() * 50; // Extra variation
+        const totalDelay = baseDelay + randomDelay;
 
-    // Render Message Panel
-    msgContent.innerHTML = `
-        <div class="personal-message">${data.message}</div>
-        <div class="message-signature">${data.signature}</div>
-    `;
+        const startRot = Math.random() * 20 - 10; // -10 to 10 range (gentle) 
+        const midRot = Math.random() * 30 - 15;   // -15 to 15 range (bobbing)
+        const bobY = Math.random() * 10 - 5;
+        const bobRot = Math.random() * 10 - 5;     // 5-15 degree requested, let's use ~10 for bob
+        const breatheSpeed = Math.random() * 2 + 2; // 2-4s breathing interval
 
-    // Render Vinyl Panel
-    vinylContainer.innerHTML = `
-        <div class="vinyl-record playing" id="vinyl-record">
-            <div class="vinyl-shine"></div>
-            <div class="vinyl-photo-label">
-                <img src="${data.photo}" class="vinyl-photo" alt="Moment">
-            </div>
-        </div>
-    `;
+        span.style.animationDelay = `${totalDelay}ms, ${totalDelay + 2500}ms`;
+        span.style.setProperty('--start-rot', `${startRot}deg`);
+        span.style.setProperty('--mid-rot', `${midRot}deg`);
+        span.style.setProperty('--bob-y', `${bobY}px`);
+        span.style.setProperty('--bob-rot', `${bobRot}deg`);
+        span.style.animationDuration = `2.5s, ${breatheSpeed}s`;
 
-    // Set Audio
-    audio.src = data.audio;
-    audio.play().catch(e => {
-        console.log("Autoplay blocked or audio missing:", e);
-        document.getElementById('play-pause-btn').textContent = '▶';
-        const vinylRec = document.getElementById('vinyl-record');
-        if (vinylRec) vinylRec.classList.remove('playing');
+        container.appendChild(span);
     });
-
-    document.getElementById('play-pause-btn').textContent = '⏸';
-    const vinylRec = document.getElementById('vinyl-record');
-    if (vinylRec) vinylRec.classList.add('playing');
-
-    // Handle audio events
-    audio.onended = () => {
-        if (currentUnsaidPage < unsaidData.length - 1) {
-            nextUnsaidPage();
-        } else {
-            const vinylRec = document.getElementById('vinyl-record');
-            if (vinylRec) vinylRec.classList.remove('playing');
-            document.getElementById('play-pause-btn').textContent = '▶';
-        }
-    };
-
-    // Update Progress Bar
-    clearInterval(progressInterval);
-    progressInterval = setInterval(() => {
-        if (!audio.paused && audio.duration) {
-            const progress = (audio.currentTime / audio.duration) * 100;
-            const barFill = document.getElementById(`bar-fill-${currentUnsaidPage}`);
-            if (barFill) barFill.style.width = `${progress}%`;
-        }
-    }, 100);
-}
-
-function toggleAudio() {
-    const audio = document.getElementById('unsaid-audio');
-    const vinyl = document.getElementById('vinyl-record');
-    const btn = document.getElementById('play-pause-btn');
-
-    if (audio.paused) {
-        audio.play();
-        if (vinyl) vinyl.classList.add('playing');
-        btn.textContent = '⏸';
-    } else {
-        audio.pause();
-        if (vinyl) vinyl.classList.remove('playing');
-        btn.textContent = '▶';
-    }
-}
-
-function nextUnsaidPage() {
-    if (currentUnsaidPage < unsaidData.length - 1) {
-        currentUnsaidPage++;
-        renderUnsaidPage();
-    }
-}
-
-function prevUnsaidPage() {
-    if (currentUnsaidPage > 0) {
-        currentUnsaidPage--;
-        renderUnsaidPage();
-    }
 }
 
 function closeUnsaidGift() {
     const overlay = document.getElementById('unsaid-overlay');
-    const audio = document.getElementById('unsaid-audio');
-    clearInterval(progressInterval);
-    if (audio) audio.pause();
     overlay.classList.remove('active');
 }
 
-function setupKeyboardNav() {
-    if (window.unsaidKeyboardSetup) return;
+function setupLetterKeyboardNav() {
+    if (window.letterKeyboardSetup) return;
     document.addEventListener('keydown', (e) => {
         const overlay = document.getElementById('unsaid-overlay');
         if (!overlay || !overlay.classList.contains('active')) return;
-
-        if (e.key === 'ArrowRight') nextUnsaidPage();
-        if (e.key === 'ArrowLeft') prevUnsaidPage();
-        if (e.key === ' ') {
-            e.preventDefault();
-            toggleAudio();
-        }
         if (e.key === 'Escape') closeUnsaidGift();
     });
-    window.unsaidKeyboardSetup = true;
+    window.letterKeyboardSetup = true;
 }
 
 function renderInfinityMoments(images) {

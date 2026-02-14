@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coupons of Love 🎟️</title>
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/unsaid.css">
+    <style>
+        body {
+            background: var(--unsaid-cream);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .session-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: var(--unsaid-burgundy);
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .coupon-container {
+            width: 90%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .dramatic-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+        }
+
+        .dramatic-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .dramatic-message {
+            color: white;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            text-align: center;
+            padding: 40px;
+            max-width: 80%;
+            line-height: 1.4;
+            transform: scale(0.8);
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .dramatic-overlay.active .dramatic-message {
+            transform: scale(1);
+        }
+
+        .classic-vintage-btn {
+            background: var(--unsaid-coral);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 155, 133, 0.4);
+            transition: all 0.3s ease;
+            margin-top: 30px;
+        }
+
+        .classic-vintage-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 155, 133, 0.6);
+            background: var(--unsaid-burgundy);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="hearts-container"></div>
+
+    <h1 class="session-title">Your Coupons of Love 👑</h1>
+
+    <div class="coupon-container">
+        <div class="ticket-header-label"
+            style="text-align: center; font-family: 'Outfit', sans-serif; letter-spacing: 2px; color: #888; margin-bottom: 20px;">
+            Swipe to view your collection
+        </div>
+
+        <div class="ticket-carousel" id="ticket-carousel">
+            <!-- Ticket 1: Movie Marathon -->
+            <div class="vintage-ticket ticket-red">
+                <div class="ticket-stub">
+                    <div class="stub-text">CINEMA ADMIT TWO</div>
+                    <div class="void-text">VOID IF DETACHED</div>
+                </div>
+                <div class="ticket-main">
+                    <div class="ticket-header">VINTAGE RED CINEMA</div>
+                    <div class="ticket-title">MOVIE MARATHON NIGHT</div>
+                    <div class="ticket-details">
+                        <div class="detail-item"><span>Row</span>Couch</div>
+                        <div class="detail-item"><span>Seat</span>Cuddle Position</div>
+                        <div class="detail-item" style="grid-column: span 2;"><span>Duration</span>Until We Fall Asleep
+                        </div>
+                    </div>
+                    <div class="ticket-footer">
+                        <div class="ticket-no">№ 0616-2024</div>
+                        <div>🍿 FILM REEL SPECIAL</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ticket 2: One Day as Queen -->
+            <div class="vintage-ticket ticket-gold">
+                <div class="ticket-stub">
+                    <div class="stub-text">ROYAL DECREE</div>
+                    <div class="void-text">VOID IF DETACHED</div>
+                </div>
+                <div class="ticket-main">
+                    <div class="ticket-header">PALACE SERVICES</div>
+                    <div class="ticket-title">ONE DAY AS QUEEN</div>
+                    <div class="ticket-details">
+                        <div class="detail-item" style="grid-column: span 2;"><span>Entitlement</span>24 Hours of
+                            Pampered Royalty</div>
+                        <div class="detail-item" style="grid-column: span 2;"><span>Valid</span>Any Day of Your Choice
+                        </div>
+                    </div>
+                    <div class="ticket-footer">
+                        <div class="ticket-no">№ QUEEN-888</div>
+                        <div>👑 ROYAL CREST</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ticket 3: Unlimited Hugs & Kisses -->
+            <div class="vintage-ticket ticket-pink">
+                <div class="ticket-stub">
+                    <div class="stub-text">LIFETIME PASS</div>
+                    <div class="void-text">VOID IF DETACHED</div>
+                </div>
+                <div class="ticket-main">
+                    <div class="ticket-header">HEART TRANSIT CO.</div>
+                    <div class="ticket-title">UNLIMITED HUGS & KISSES</div>
+                    <div class="ticket-details">
+                        <div class="detail-item"><span>Route</span>Heart to Heart</div>
+                        <div class="detail-item"><span>Status</span>Non-transferable</div>
+                        <div class="detail-item" style="grid-column: span 2;"><span>Expires</span>Never</div>
+                    </div>
+                    <div class="ticket-footer">
+                        <div class="ticket-no">№ LOVE-143</div>
+                        <div>❤️ LIFETIME PASS</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ticket 4: Adventure Day -->
+            <div class="vintage-ticket ticket-teal">
+                <div class="ticket-stub">
+                    <div class="stub-text">TRAVEL VOUCHER</div>
+                    <div class="void-text">VOID IF DETACHED</div>
+                </div>
+                <div class="ticket-main">
+                    <div class="ticket-header">WANDERLUST AIRWAYS</div>
+                    <div class="ticket-title">ADVENTURE AWAITS</div>
+                    <div class="ticket-details">
+                        <div class="detail-item" style="grid-column: span 2;"><span>Activity</span>One Spontaneous
+                            Adventure</div>
+                        <div class="detail-item"><span>Destination</span>Your Choice</div>
+                        <div class="detail-item"><span>Departure</span>Anytime</div>
+                    </div>
+                    <div class="ticket-footer">
+                        <div class="ticket-no">№ ADV-555</div>
+                        <div>📍 COMPASS ROSE</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ticket 5: Breakfast in Bed -->
+            <div class="vintage-ticket ticket-mint">
+                <div class="ticket-stub">
+                    <div class="stub-text">DINER SPECIAL</div>
+                    <div class="void-text">VOID IF DETACHED</div>
+                </div>
+                <div class="ticket-main">
+                    <div class="ticket-header">SUNRISE CAFE</div>
+                    <div class="ticket-title">BREAKFAST IN BED ROYALE</div>
+                    <div class="ticket-details">
+                        <div class="detail-item"><span>Chef's Special</span>Includes: Coffee, Kisses & Cuddles</div>
+                        <div class="detail-item"><span>Service</span>Served with Love</div>
+                    </div>
+                    <div class="ticket-footer">
+                        <div class="ticket-no">№ BFAST-101</div>
+                        <div>☕ RETRO DINER</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="classic-vintage-btn" onclick="revealReveal()">Accept with Love ❤️</button>
+    </div>
+
+    <!-- Dramatic Overlay -->
+    <div id="dramatic-overlay" class="dramatic-overlay">
+        <div class="dramatic-message" id="dramatic-message"></div>
+    </div>
+
+    <script>
+        function createHeart() {
+            const container = document.getElementById('hearts-container');
+            if (!container) return;
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.zIndex = "10";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 400);
+
+        function revealReveal() {
+            const overlay = document.getElementById('dramatic-overlay');
+            const messageEl = document.getElementById('dramatic-message');
+
+            messageEl.innerHTML = "You have successfully availed all the Coupons of Love with 'The Product: Jagan'! <br><br> With all my love, Jagan ❤️ <br> (No refunds, no returns!) 😂";
+
+            overlay.classList.add('active');
+
+            // Redirect back to map after a few seconds or on click
+            overlay.onclick = () => {
+                window.location.href = 'map.html';
+            };
+
+            setTimeout(() => {
+                window.location.href = 'map.html';
+            }, 6000);
+        }
+    </script>
+</body>
+
+</html>

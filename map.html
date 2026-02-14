@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="styles/heart.css">
     <link rel="stylesheet" href="styles/timeline.css">
     <link rel="stylesheet" href="styles/unsaid.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@700;900&family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
     <style>
         body {
             display: block;
@@ -58,30 +61,31 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        /* Positions */
+        /* Updated positions for a more symmetrical heart */
+        /* Updated positions for a 5-gift symmetrical heart */
         #gift1 {
-            top: 100px;
-            left: 100px;
+            top: 200px;
+            left: 150px;
         }
 
         #gift2 {
-            top: 250px;
-            left: 400px;
+            top: 400px;
+            left: 300px;
         }
 
         #gift3 {
-            top: 150px;
-            left: 700px;
+            top: 200px;
+            left: 730px;
         }
 
         #gift4 {
-            top: 450px;
-            left: 750px;
+            top: 400px;
+            left: 580px;
         }
 
         #gift5 {
-            top: 600px;
-            left: 400px;
+            top: 650px;
+            left: 440px;
         }
 
         .path-svg {
@@ -95,10 +99,13 @@
 
         .path-line {
             fill: none;
-            stroke: #d90429;
-            stroke-width: 4;
-            stroke-dasharray: 10, 10;
-            opacity: 0.4;
+            stroke: #ff9b85;
+            /* Coral/Pink color */
+            stroke-width: 5;
+            stroke-dasharray: 5, 8;
+            /* 5px dashes, 8px gaps */
+            opacity: 0.6;
+            filter: drop-shadow(0 0 5px rgba(255, 155, 133, 0.4));
         }
 
         /* Floating Texts */
@@ -290,8 +297,14 @@
     </div>
 
     <div class="map-container" id="map-container">
-        <svg class="path-svg">
-            <path d="M 160 160 L 400 310 L 700 210 L 810 510 L 460 660" class="path-line" />
+        <svg class="path-svg" viewBox="0 0 1000 850">
+            <!-- Treasure Map Zigzag Trail connecting G1 -> G2 -> G5 -> G4 -> G3 -> G1 -->
+            <path d="M 160 210 
+                     L 180 260 L 150 310 L 220 360 L 310 410 
+                     L 350 480 L 320 540 L 390 600 L 450 660 
+                     L 510 600 L 580 540 L 550 480 L 590 410 
+                     L 680 360 L 750 310 L 720 260 L 740 210 
+                     L 680 140 L 600 110 L 500 160 L 400 110 L 320 140 L 230 170 L 160 210" class="path-line" />
         </svg>
 
         <div class="gift-node floating-card" id="gift1" onclick="openGift(1)">
@@ -305,14 +318,14 @@
             <div class="node-label">Our Moments</div>
         </div>
 
-        <div class="gift-node floating-card" id="gift3" onclick="openGift(3)" style="animation-delay: 1s;">
+        <div class="gift-node floating-card" id="gift3" onclick="openGift(3)" style="animation-delay: 1.5s;">
             <div class="gift-icon">✨</div>
             <div class="node-label">Beauty Chapter</div>
         </div>
 
-        <div class="gift-node floating-card" id="gift4" onclick="openGift(4)" style="animation-delay: 1.5s;">
-            <div class="gift-icon">🌙</div>
-            <div class="node-label">Unsaid Feelings</div>
+        <div class="gift-node floating-card" id="gift4" onclick="openGift(4)" style="animation-delay: 1s;">
+            <div class="gift-icon">👑</div>
+            <div class="node-label">Loyalty Coupon</div>
         </div>
 
         <div class="gift-node floating-card" id="gift5" onclick="openGift(5)" style="animation-delay: 2s;">
@@ -349,50 +362,32 @@
         </div>
     </div>
 
-    <!-- Unsaid Feelings (Digital Gift) Overlay (Redesigned) -->
+    <!-- Promise Letter (Final Gift) Overlay -->
     <div id="unsaid-overlay">
-        <div class="envelope-wrapper" id="envelope-wrapper" onclick="startUnsaidGift()">
+        <div class="envelope-wrapper" id="envelope-wrapper" onclick="startFinalLetter()">
             <div class="envelope-flap"></div>
             <div class="wax-seal">❤️</div>
             <div class="envelope-text">
-                <p style="margin-top: 60px;">To: My Cutie Pie</p>
-                <p style="margin: 10px 0;">From: Your Love</p>
-                <p style="font-size: 0.8rem; opacity: 0.7;">Click to Open</p>
+                <p style="margin-bottom: 50px;">To: My Cutie Pie</p>
+                <p style="margin: 0;">From: Your Love</p>
+                <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 10px;">Click to Open</p>
             </div>
         </div>
 
-        <div class="gift-player" id="gift-player">
+        <div class="letter-display" id="gift-player">
             <button class="player-close-top" onclick="closeUnsaidGift()">×</button>
-            <div class="left-panel">
-                <div class="stories-progress-container" id="stories-progress">
-                    <!-- Progress bars injected by JS -->
+            <div class="letter-paper">
+                <div class="letter-content" id="final-letter-content">
+                    <!-- Letter content injected by JS -->
                 </div>
-                <div class="message-content" id="message-content">
-                    <!-- Message injected by JS -->
+                <div class="letter-footer">
+                    <button class="gallery-btn"
+                        style="margin-top: 30px; font-size: 1.2rem; padding: 15px 30px; background: linear-gradient(45deg, #ff4d6d, #c9184a);"
+                        onclick="startHeartSurprise()">Unlock Final Infinite Surprise ✨❤️</button>
+                    <p
+                        style="margin-top: 20px; font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: var(--unsaid-burgundy);">
+                        With all my love, Jagadish</p>
                 </div>
-            </div>
-            <div class="right-panel">
-                <div class="vinyl-container" id="vinyl-container">
-                    <!-- Vinyl injected by JS -->
-                </div>
-                <div class="audio-controls">
-                    <div class="audio-info" id="audio-info">Playing Voice Note...</div>
-                    <div class="audio-main-controls">
-                        <button class="control-btn" onclick="prevUnsaidPage()">⏮</button>
-                        <button class="control-btn play-pause-btn" id="play-pause-btn"
-                            onclick="toggleAudio()">▶</button>
-                        <button class="control-btn" onclick="nextUnsaidPage()">⏭</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Hidden Audio Element -->
-            <audio id="unsaid-audio" preload="auto"></audio>
-
-            <!-- Nav Arrows for manual control -->
-            <div class="nav-arrow">
-                <button class="arrow-btn" onclick="prevUnsaidPage()">←</button>
-                <button class="arrow-btn" onclick="nextUnsaidPage()">→</button>
             </div>
         </div>
     </div>
